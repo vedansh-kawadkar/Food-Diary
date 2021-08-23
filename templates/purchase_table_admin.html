@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Purchase table</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Food Diary</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button> &nbsp;&nbsp
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{%url 'FoodIndex_new:base_table'%}">Food Table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{%url 'FoodIndex_new:purchase_table'%}">Purchase Table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{%url 'FoodIndex_new:consumption_table'%}">Pancare Food Table</a>
+                </li>
+                </ul>
+                </div>
+            <a href="{% url 'home_app_new:deletetemp' %}"><button type="submit" style="height: 1%;" class="btn btn-danger ">Logout</button></a>
+        </div>
+        
+
+    </nav>
+    <div id="FoodMaster">
+        <p id="title">Purchase Table</p>
+        <p class="text-center">
+            <span><a href="add_purchase_food"><button class="btn btn-info" type="submit" formaction="addfood">Add New
+                        Food</button></a>
+            </span>
+            {% comment %} <span><a href="upload_csv_"><button class="btn btn-primary" type="submit" formaction="upload_csv_">Add New CSV
+                        File</button></a>
+            </span> {% endcomment %}
+            
+        </p>
+    </div>
+    
+        <style>
+            #descrp{
+             width: 20rem;
+            }
+            .navbar {
+                box-shadow: 0 4px 8px 0 rgba(89, 67, 216, 0.482);
+            }
+            
+            .container-fluid {
+                background-color: rgb(255, 255, 255);
+                margin-top: 0 !important;
+                padding-top: 0.7rem;
+                width: fit-content !important;
+            }
+            
+            body {
+                background-size: cover;
+                background-color: rgb(250, 250, 250);
+                padding: 0 !important;
+            }
+            
+            #FoodMaster {
+                text-align: center;
+                font-size: 30px;
+                background-color: rgb(255, 255, 255);
+                margin-bottom: 0;
+                width: fit-content;
+                margin-right: auto;
+                margin-left: auto;
+                padding: 1rem;
+            }
+            
+            #title {
+                margin: 1rem auto 1.5rem auto;
+                color: rgb(69, 5, 117);
+                font-family: Georgia, 'Times New Roman', Times, serif;
+                font-weight: 500;
+                font-size: 40px;
+                background: rgb(247, 246, 248);
+                width: fit-content;
+                padding: .3rem 1.5rem;
+                border: 2px solid black;
+                border-radius: 12px;
+            }
+            
+            #table {
+                border-style: solid !important;
+                border-color: midnightblue !important;
+                border-width: 2px !important;
+                border-radius: 5px;
+                width: 100rem;
+                
+            }
+            
+            th {
+                text-align: center;
+                text-transform: uppercase;
+            }
+            
+            td {
+                text-align: center;
+            }
+        </style>
+
+
+  <table id="table" border="5">
+    <thead>
+      <tr>
+        <th>FoodName</th>
+        <th width="20">Description</th>
+        <th>serving_style</th>
+        <th>Carbohydrate</th>
+        <th>Protein</th>
+        <th>Fat</th>
+        <th>Fiber</th>
+        <th>Sugar</th>
+        <th>Calories</th>
+        <th>shop_name</th>
+        <th>Image</th>
+        <th>Edit</th>
+        <th>Delete </th>
+      </tr>
+    </thead>
+    <tbody>
+    <!-- jinja2 Technique -->
+    {% if dataframe %}  
+    {% for i in dataframe %}
+      <tr>
+        <td>{{i.food_name}}</td>
+        <td id="descrp">{{i.description}}</td>
+        <td>{{i.ss_code}}</td>
+        <td>{{i.carbs}}</td>
+        <td>{{i.protein}}</td>
+        <td>{{i.fat}}</td>
+        <td>{{i.fiber}}</td>
+        <td>{{i.sugar}}</td>
+        <td>{{i.calorie}}</td>
+        <td>{{i.shop_name}}</td>
+        <td><img src="{{ i.image_path}}" height="100px" width="100px"></img></td>
+        <!--<td><button type="button" class="btn btn-primary">Edit</button></td>
+        <td><button type="button" class="btn btn-danger">Delete</button></td>-->
+        <td class="edit-button"><a href="update_purchase/{{i.id}}" class='btn btn-dark btn-rounded my-0' id='{{i.id}}'>Edit</a></td>
+        <td class="edit-button"><a href="delete_purchase/{{i.id}}" class="btn btn-danger" id='{{i.id}}'>Delete</a>
+        </td>
+      </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+<script>
+    
+
+    function getIndexOfRowClicked(e) {
+        var table = document.getElementById('table')
+        var rows = [].slice.call(table.querySelectorAll('.table-row'), 0)
+        return rows.indexOf(e.parentElement.parentElement)
+    }
+
+    function edit(e) {
+        var table = document.getElementById('table')
+        var rows = [].slice.call(table.querySelectorAll('.table-row'), 0)
+        var index = getIndexOfRowClicked(e)
+        console.log(index)
+        var rowClicked = rows[index]
+        rowClicked.contentEditable = 'true'
+
+    }
+
+    function deleted(e) {
+        var table = document.getElementById('table')
+        var rows = [].slice.call(table.querySelectorAll('.table-row'), 0)
+        var index = getIndexOfRowClicked(e)
+        table.deleteRow(index + 1)
+    }
+</script>
+</body>
+</html>

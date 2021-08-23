@@ -1,0 +1,85 @@
+{%extends 'base.html'%} {% block body_block%}
+<style>
+    a {
+        color: #000000;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: #000000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .display-4 {
+        text-align: center;
+    }
+    
+    .lead {
+        text-align: center;
+    }
+    
+    .card-text {
+        color: #5C5C5C;
+    }
+</style>
+<div class="container1">
+    <div class="jumbotron my-3">
+        <h1 class="display-4"><i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp Food Types &nbsp;<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        <p class="lead">Choose your food type</p>
+        <hr class="my-4">
+    </div>
+</div>
+<h2>Please choose an option: </h2>
+<a href="{%url 'basic_app_new:north'%}">
+    <div class="container">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 my-4 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <br>
+                <br>
+                <br>
+                <h3 class="mb-0">Consume Items</h3>
+                <p class="card-text mb-auto">Food Items coming from food master table of PAN Health.</p>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+          <image href="https://www.livemorezone.com/wp-content/uploads/north-indian-food-livemorezone-dbs.jpg" height="250" width="250"/>
+        </svg>
+            </div>
+        </div>
+</a>
+<a href="{%url 'basic_app_new:purchase_cards'%}">
+    <div class="container">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 my-4 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <br>
+                <br>
+                <br>
+                <h3 class="mb-0">Purchase Items</h3>
+                <p class="card-text mb-auto">Store your purchase history here</p>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+                  <image href="https://st.depositphotos.com/1592314/4131/i/950/depositphotos_41318961-stock-photo-vegetables-and-herbs-shopping-basket.jpg" height="250" width="250"/>
+                </svg>
+            </div>
+        </div>
+</a>
+<a href="{%url 'home_app_new:cuisine_cards'%}">
+    <div class="container">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 my-4 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <br>
+                <br>
+                <br>
+                <h3 class="mb-0">Assorted items</h3>
+                <p class="card-text mb-auto">Make your choice based on cuisine</p>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+                  <image href="https://s3-ap-south-1.amazonaws.com/rbl-prod-blog-bucket/wp-content/uploads/2019/12/17113725/5-hot-new-cuisines-mob.jpg" height="250" width="250"/>-->
+                </svg>
+            </div>
+        </div>
+</a>
+{%endblock%}

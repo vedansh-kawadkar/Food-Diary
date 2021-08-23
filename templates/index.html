@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/f491ae5aed.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <title>Food Diary</title>
+    <style>
+        span {
+            background-color: red;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon:hover {
+            transform: scale(1.2);
+            text-shadow: 0 10px 30px green;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .navbar {
+            background-color: #e9ecef;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark  ">
+        <div class="container-fluid">
+            <a class="navbar-brand   " href="{%url 'FoodIndex_new:home'%}">Food Diary</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active   " aria-current="page" href="{%url 'FoodIndex_new:home'%}">Home</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link   " href="{%url 'home_app_new:table'%}">Consumed Items</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link   " href="{%url 'home_app_new:purchase'%}">Purchased Items</a>
+                    </li> -->
+
+                    <li class="nav-item">
+                       <!-- <a class="nav-link   " href="{%url 'home_app_new:nut'%}" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add Food Item</a>-->
+                        <div class="dropdown">
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+
+
+
+                                <a href="" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalLoginForm" style="font-weight:500;">Consumption</a>
+                                <!--   <a href="" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalPurchaseForm" style="font-weight:500;">Purchase</a> -->
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle   " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Reports
+            </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{%url 'home_app_new:nut'%}">Nutrition Analysis</a>
+                            <a class="dropdown-item " href="{%url 'FoodIndex_new:userfoodlogchart'%}  ">Calories Analysis</a>
+                            <!--  <a class="dropdown-item " href="{%url 'home_app_new:purchasechart'%} " style="font-weight:500; ">Purchase vs Consumption Analysis</a>
+                            <a class="dropdown-item " href="{%url 'home_app_new:purchase_status'%} " style="font-weight:500; ">Purchase History</a> -->
+                            <a class="dropdown-item " href="{%url 'home_app_new:consumed_history'%}  ">Consumption History</a>
+                            <a class="dropdown-item " href="{%url 'home_app_new:consumeComparison'%}  ">Consume Comparison</a>
+
+
+
+                        </div>
+                    </li>
+                </ul>
+
+                <!--
+                <a class="nav-link " name="icon " href="{%url 'home_app_new:purchase'%} " data-trigger="hover " data-toggle="popover " title="{{purchase_left}} item(s) in purchase table ">
+                    <div class="icon ">
+                        <i class="fas fa-shopping-cart fa-2x faa-horizontal " style="color:#91c788; "></i><span class="badge badge-info ">{{purchase_left}}</span>
+                    </div>
+
+                </a>
+                -->
+                <a class="nav-link " name="icon " href="{%url 'home_app_new:table'%} " data-trigger="hover " data-toggle="popover " title="{{items_left}} item(s) in transaction table ">
+
+                    <div class="icon ">
+                        <i class="fas fa-utensils fa-2x faa-horizontal " style="color:#91c788; "></i><span class="badge badge-info ">{{items_left}}</span>
+                    </div>
+
+                </a>
+                <!--<form method="GET " action="{%url 'FoodIndex_new:search'%} " class="d-flex ">
+                    <input class="form-control me-2 " type="search " placeholder="Search " aria-label="Search " name="query " id="query " list="foodlist ">
+                    <button type="submit " class="btn btn-success ">Search</button>
+
+                </form> -->
+
+            </div>
+            &nbsp;&nbsp
+            <a href="{% url 'home_app_new:deletetemp' %} "><button type="submit " class="btn btn-danger mr-2 ">Logout</button></a>
+        </div>
+        <a class="nav-link " name="icon " href="{%url 'FoodIndex_new:profile_page'%} " data-trigger="hover " data-toggle="popover " title="View Profile ">
+            <div class="icon ">
+                <i class="fas fa-user-circle fa-2x " style="color:#91c788; "></i>
+            </div>
+        </a>
+
+    </nav>
+
+    <div class='container'>
+        <div class="modal fade " id="modalLoginForm " tabindex="-1 " role="dialog " aria-labelledby="myModalLabel " aria-hidden="true ">
+            <div class="modal-dialog " role="document ">
+                <div class="modal-content ">
+                    <div class="modal-header text-center ">
+                        <h4 class="modal-title w-100 font-weight-bold ">DETAILS</h4>
+                        <button id="Cancel " class="btn btn-danger " data-dismiss="modal " aria-label="Close ">X</button>
+                        <!--  <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                    <span aria-hidden="true ">&times;</span>
+                </button> -->
+                    </div>
+                    <form method="POST ">
+                        {% csrf_token %}
+                        <div class="modal-body mx-3 ">
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Food
+                            Name</label>
+                                <input type="Text " class="form-control validate " id="selectedItem " name="selectedItem " placeholder="Eg:Dosa ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Description
+                            About The Food</label>
+                                <input type="text " class="form-control validate " id="desc " name="desc ">
+
+                            </div>
+                            <div class="md-form mb-4 ">
+                                <label>Choose a meal type :</label>
+                                <br>
+                                <select id="cars " name="meal_type " class="form-select " aria-label="Default select example ">
+                        <option value="Breakfast ">Breakfast</option>
+                        <option value="Lunch ">Lunch</option>
+                        <option value="Dinner ">Dinner</option>
+                        <option value="Snacks ">Snacks</option>
+                        <option value="Dessert ">Dessert</option>
+                      </select>
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Manufacturer's
+                            Code</label>
+                                <input type="Text " class="form-control validate " id="mfg " name="mfg ">
+
+                            </div>
+
+                            <div class="md-form mb-4 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-pass ">Enter Food Id</label>
+                                <input type="text " class="form-control validate " id="fd_id " name="fd_id " placeholder="Eg:00 ">
+
+                            </div>
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter
+                            Quantity</label>
+                                <input type="number " class="form-control validate " id="quantity " name="quantity ">
+
+                            </div>
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Calorie
+                            Content</label>
+                                <input type="text " class="form-control validate " id="cal " name="cal ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Protein
+                            Content</label>
+                                <input type="text " class="form-control validate " id="protin " name="protin ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Fat
+                            Content</label>
+                                <input type="text " class="form-control validate " id="fat " name="fat ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter
+                            Carbohydrates Content</label>
+                                <input type="text " class="form-control validate " id="carbs " name="carbs ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Sodium
+                            Content</label>
+                                <input type="text " class="form-control validate " id="sodium " name="sodium ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Sugar
+                            Content</label>
+                                <input type="text " class="form-control validate " id="sugar " name="sugar ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Calorie
+                            Saturated Fats Content</label>
+                                <input type="text " class="form-control validate " id="sat " name="sat ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Fiber
+                            Content</label>
+                                <input type="text " class="form-control validate " id="fiber " name="fiber ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter Alchohol
+                            Content</label>
+                                <input type="text " class="form-control validate " id="alc " name="alc ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Serving Style</label>
+                                <input type="Text " class="form-control validate " id="ss_c " name="ss_c ">
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center ">
+                            <input type="submit " name="submit " id="submit " value="Confirm " class="btn btn-primary " formaction="{% url 'home_app_new:foodtopan' %} ">
+                            <button id="Cancel " class="btn btn-danger " data-dismiss="modal " aria-label="Close ">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade " id="modalPurchaseForm " tabindex="-1 " role="dialog " aria-labelledby="myModalLabel " aria-hidden="true ">
+            <div class="modal-dialog " role="document ">
+                <div class="modal-content ">
+                    <div class="modal-header text-center ">
+                        <h4 class="modal-title w-100 font-weight-bold ">DETAILS</h4>
+                        <button id="Cancel " class="btn btn-danger " data-dismiss="modal " aria-label="Close ">X</button>
+                        <!-- <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                        <span aria-hidden="true ">&times;</span>
+                    </button> -->
+                    </div>
+                    <form method="POST ">
+                        {% csrf_token %}
+                        <div class="modal-body mx-3 ">
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter food
+                                name</label>
+                                <input type="Text " class="form-control validate " id="selectedItem " name="selectedItem " placeholder="Eg:Dosa ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter mfg
+                                code</label>
+                                <input type="Text " class="form-control validate " id="mfg " name="mfg ">
+
+                            </div>
+
+                            <div class="md-form mb-4 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-pass ">Enter Food Id</label>
+                                <input type="number " class="form-control validate " id="fd_id " name="fd_id " placeholder="Eg:00 ">
+
+                            </div>
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter
+                                Quantity</label>
+                                <input type="number " class="form-control validate " id="quantity " name="quantity ">
+
+                            </div>
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter calorie</label>
+                                <input type="number " class="form-control validate " id="cal " name="cal ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter protein</label>
+                                <input type="number " class="form-control validate " id="protin " name="protin ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter fat</label>
+                                <input type="number " class="form-control validate " id="fat " name="fat ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter
+                                carbohydrates</label>
+                                <input type="number " class="form-control validate " id="carbs " name="carbs ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter sodium</label>
+                                <input type="number " class="form-control validate " id="sodium " name="sodium ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter sugar</label>
+                                <input type="number " class="form-control validate " id="sugar " name="sugar ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter calorie
+                                saturated fats</label>
+                                <input type="number " class="form-control validate " id="sat " name="sat ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter fiber
+                                content</label>
+                                <input type="number " class="form-control validate " id="fiber " name="fiber ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Enter alchohol
+                                content</label>
+                                <input type="number " class="form-control validate " id="alc " name="alc ">
+
+                            </div>
+
+                            <div class="md-form mb-5 ">
+                                <label data-error="wrong " data-success="right " for="defaultForm-email ">Serving Style</label>
+                                <input type="Text " class="form-control validate " id="ss_c " name="ss_c ">
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center ">
+                            <input type="submit " name="submit " id="submit " value="Confirm " class="btn btn-success " formaction="{% url 'home_app_new:confirm_purchase2' %} ">
+                            <button id="Cancel " class="btn btn-danger " data-dismiss="modal " aria-label="Close ">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {%block body_block%} {%endblock%}
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js "></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js "></script>
+    <script>
+    </script>
+</body>
+
+</html>
+<html>
+
+<style>
+    select {
+        background-color: whitesmoke;
+        border: none;
+        color: dodgerblue;
+        padding: 15px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+    }
+    
+    .date {
+        padding-left: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+    <div>
+        <br>
+
+        <br> {%if nuttype%}
+        <center class="row">
+            <br>
+            <h1 class="container-fluid" style="font-family: 'Times New Roman', Times, serif;">Total <b style="color: red;">{{nuttype}} <!--<i class="fa fa-cutlery" aria-hidden="true"></i>--></b> consumed in your diet in last <b>5 days</b></h1>
+        </center>
+
+        <hr /> {%else%}
+        <center class="row">
+            <h1>Total <b style="color: red;">Nutrition </b> consumed in your diet in last <b>5 days</b></h1>
+        </center>
+
+        <hr /> {%endif%}
+    </div>
+    <table>
+        <tr>
+            <th>
+                <h3 style="font-family: 'Times New Roman', Times, serif;"><i class="logo fa fa-cutlery" aria-hidden="true"></i>&nbsp;Nutrition analysis :&nbsp; &nbsp; </h3>
+            </th>
+            <th>
+                <h3 style="font-family: Arial, Helvetica, sans-serif;font-size: 25px;">{{fromdate}} - {{todate}}</h3>
+            </th>
+            <th>
+
+                <form method="POST" action="{%url 'home_app_new:chartof'%}">
+                    {%csrf_token%}
+                    <br>
+            </th>
+            <th>
+                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+            <th>
+                <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Select Date &nbsp;&nbsp;
+
+                    <input class="input-fields btn btn-primary active" style="padding: 5px;font-size: small;" type="date" id="fromdate" name="fromdate" placeholder="MM/DD/YYYY" onfocus="(this.type='date')" required>
+                </h3>
+            </th>
+        </tr>
+    </table>
+    <br>
+
+    <h2 style="text-align: center;font-family: 'Times New Roman', Times, serif;color: red;">Nutrition
+        <select name="charts" method="GET" required>
+                <option value="" class=" btn-outline-info">Select </option>
+                <option value= "calorie" >Calories</option>
+                  <option value= "carbohydrate" >Carbohydrates</option>
+                  <option value= "sodium" >Sodium</option>
+                  <option value= "alcohol">Alcohol</option>
+                  <option value= "fat" >Fat</option>
+                  <option value= "fiber" >Fiber</option>
+                 
+                </select>
+    </h2>
+
+    <br>
+
+
+    <center> <input class="btn btn-success" type="submit"> </center>
+    <br>
+
+    </form>
+
+    {%if nuttype%}
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="myChartline"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="myChartBar"></canvas>
+        </div>
+    </div>
+    {%endif%}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script>
+        var endpoint = '/api';
+
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function(data) {
+                drawLineGraph(data, 'myChartline');
+                drawBarGraph(data, 'myChartBar');
+                console.log("drawing");
+            },
+            error: function(error_data) {
+                console.log(error_data);
+            }
+        })
+
+
+        function drawLineGraph(data, id) {
+            var labels = data.labels;
+            var chartLabel = data.chartLabel;
+            var chartdata = data.chartdata;
+            var ctx = document.getElementById(id).getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: chartLabel,
+                        backgroundColor: 'rgb(255, 100, 200)',
+                        borderColor: 'rgb(55, 99, 132)',
+                        data: chartdata,
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    scales: {
+                        xAxes: [{
+                            display: true
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+
+            });
+        }
+
+        function drawBarGraph(data, id) {
+            var labels = data.labels;
+            var chartLabel = data.chartLabel;
+            var chartdata = data.chartdata;
+            var ctx = document.getElementById(id).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: chartLabel,
+                        data: chartdata,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    </script>
+    </<!DOCTYPE html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+
+    <body>
+        <!--[if lt IE 7]>
+                <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+            <![endif]-->
+
+        <script src="" async defer></script>
+    </body>
+
+    </html>>

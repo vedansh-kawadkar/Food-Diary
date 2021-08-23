@@ -1,0 +1,168 @@
+{%extends 'base.html'%} {% block body_block%}
+
+<style>
+    #home-btn {
+        margin-left: 100%;
+        border: 2px solid darkslateblue;
+        transform: scale(1.2);
+        color: rgb(35, 109, 245) !important;
+    }
+    
+    #form {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 50px;
+        justify-content: space-around;
+    }
+    
+    #pie-cont {
+        width: 450px;
+        height: 450px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 15px;
+    }
+    
+    #linechart {
+        width: 450px;
+        height: 450px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 15px;
+    }
+    
+    #charts {
+        display: flex;
+        justify-content: space-around;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    .input-fields {
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    #submit-btn {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-bottom: 2rem;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+    <br>
+    <h1 class="text-center" style="font-family: Georgia, 'Times New Roman', Times, serif;font-weight: bold;color: red;">Purchase vs Consumption Analysis<br><i class="fa fa-bar-chart" aria-hidden="true"></i></h1>
+    <br>
+    <form method="POST">
+        <div id="form">
+            {% csrf_token %} {% include 'messages.html' %}
+            <div>
+                <h3 id="selectdate" style="font-family: 'Times New Roman', Times, serif;">Select "From" Date</h3>
+                <input class="input-fields btn btn-info" type="date" id="fromdate" name="fromdate" required>
+            </div>
+            <div>
+                <h3 id="selectdate" style="font-family: 'Times New Roman', Times, serif;">Select "To" Date</h3>
+                <input class="input-fields btn btn-info" type="date" id="todate" name="todate" required>
+            </div>
+        </div>
+        <br>
+
+        <a href="purchasechart" style="text-decoration: none;"><button id="submit-btn" class="btn btn-success" type="submit" style="text-decoration: none;"
+                formaction="purchasechart">Submit</button></a>
+    </form>
+    <br>
+    <h3 class="text-center">Purchase vs Consumption Analysis From '{{fromdate}}' To '{{todate}}'</h3>
+    <br>
+    <div id="charts">
+
+        <div id="pie-cont">
+
+            <div id="piechart2_3d"></div>
+        </div>
+        <div id="linechart">
+            <div id="piechart_3d" style="width: 700px; height: 420px"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var data = JSON.parse("{{consumedata|escapejs}}");
+    var list = []
+    var date1 = data[0]["date"]
+    var date2 = data[data.length - 1]["date"]
+        //var mt = data[0]["meal_type"]
+        //console.log(date)
+    for (let i = 0; i < data.length; i++) {
+        list.push([data[i]["food_name"], parseInt(data[i]["quantity"])])
+    }
+    console.log(list)
+    google.charts.load("current", {
+        packages: ["corechart"]
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ["FoodName", "Quantity"],
+            ...list
+        ]);
+
+        var options = {
+            titleTextStyle: {
+                fontSize: 20,
+                bold: true,
+            },
+            title: 'Food Consumed Proportions',
+            is3D: true,
+            width: 420,
+            height: 420
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+    }
+</script>
+<script type="text/javascript">
+    var data = JSON.parse("{{purchasedata|escapejs}}");
+    var list1 = []
+    var date1 = data[data.length - 1]["date"]
+    var date2 = data[0]["date"]
+        //var mt = data[0]["meal_type"]
+        //console.log(date)
+    for (let i = 0; i < data.length; i++) {
+        list1.push([data[i]["food_name"], parseInt(data[i]["quantity"])])
+    }
+    console.log(list)
+    google.charts.load("current", {
+        packages: ["corechart"]
+    })
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ["FoodName", "Quantity"],
+            ...list1
+        ]);
+
+        var options = {
+            titleTextStyle: {
+                fontSize: 20,
+                bold: true,
+            },
+            title: 'Food Purchased Proportions',
+            is3D: true,
+            width: 420,
+            height: 420
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2_3d'));
+        chart.draw(data, options);
+    }
+</script>
+{% endblock %}

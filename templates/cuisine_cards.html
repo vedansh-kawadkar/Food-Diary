@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/f491ae5aed.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <title>Food Diary</title>
+    <style>
+        span {
+            background-color: red;
+        }
+        
+        .icon:hover {
+            transform: scale(1.2);
+            text-shadow: 0 10px 30px green;
+        }
+        
+        .navbar {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand " href="{%url 'FoodIndex_new:home'%}">Food Diary</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active  " aria-current="page" href="{%url 'FoodIndex_new:home'%}">Home</a>
+                    </li>
+
+                    <!-- 
+                    <li class="nav-item">
+                        <a class="nav-link  " href="{%url 'home_app_new:table'%}">Consumed Items</a>
+                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/cuisine_consumed">Cuisine Consumed Items</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link  " href="{%url 'home_app_new:nut'%}" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Add Food Item</a>
+                        <div class="dropdown">
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+
+
+
+                                <!-- <a href="" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalLoginForm" style="font-weight:500;">Consumption</a> -->
+                                <a href="" class="dropdown-item" type="button" data-toggle="modal" data-target="#modalPurchaseForm" style="font-weight:500;">Purchase</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle  " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Reports
+            </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <!--  <a class="dropdown-item" href="{%url 'home_app_new:nut'%}" style="font-weight:500;">Nutrition Analysis</a>
+                            <a class="dropdown-item" href="{%url 'FoodIndex_new:userfoodlogchart'%}" style="font-weight:500;">Calories Analysis</a>
+
+                            <a class="dropdown-item" href="{%url 'home_app_new:consumed_history'%}" style="font-weight:500;">Consumption History</a>
+                            <a class="dropdown-item" href="{%url 'home_app_new:consumeComparison'%}" style="font-weight:500;">Consume Comparison</a>
+                            <a class="dropdown-item" href="{%url 'home_app_new:purchasechart'%}" style="font-weight:500;">Purchase vs Consumption Analysis</a> 
+                            <a class="dropdown-item" href="{%url 'home_app_new:purchaseComparison'%}" style="font-weight:500;">Purchase Comparison</a>-->
+
+
+                            <a class="dropdown-item" href="{%url 'home_app_new:consumption_cuisine_status'%}" style="font-weight:500;">Cuisines Consumption History</a>
+
+                        </div>
+                    </li>
+                </ul>
+
+
+                <a class="nav-link" name="icon" href="{%url 'home_app_new:cuisine_consumed'%}" data-trigger="hover" data-toggle="popover" title="{{assorted_left}} item(s) in assorted table">
+                    <div class="icon">
+                        <i class="fas fa-utensil-spoon fa-2x faa-horizontal" style="color:#91c788; "></i><span class="badge badge-info">{{assorted_left}}</span>
+                    </div>
+
+                </a>
+                <!--
+                <a class="nav-link" name="icon" href="{%url 'home_app_new:table'%}" data-trigger="hover" data-toggle="popover" title="{{items_left}} item(s) in transaction table">
+
+                    <div class="icon">
+                        <i class="fas fa-utensils fa-2x faa-horizontal" style="color:#001f01; "></i><span class="badge badge-info">{{items_left}}</span>
+                    </div>
+-->
+                </a>
+
+
+            </div>
+            &nbsp;&nbsp
+            <a href="{% url 'home_app_new:deletetemp' %}"><button type="submit" class="btn btn-danger mr-2">Logout</button></a>
+        </div>
+        <a class="nav-link" name="icon" href="{%url 'FoodIndex_new:profile_page'%}" data-trigger="hover" data-toggle="popover" title="View Profile">
+            <div class="icon">
+                <i class="fas fa-user-circle fa-2x" style="color:#91c788;"></i>
+            </div>
+        </a>
+
+    </nav>
+
+    <div class='container'>
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">DETAILS</h4>
+                        <button id="Cancel" class="btn btn-danger" data-dismiss="modal" aria-label="Close">X</button>
+                        <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="modal-body mx-3">
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Food
+                            Name</label>
+                                <input type="Text" class="form-control validate" id="selectedItem" name="selectedItem" placeholder="Eg:Dosa">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Description
+                            About The Food</label>
+                                <input type="text" class="form-control validate" id="desc" name="desc">
+
+                            </div>
+                            <div class="md-form mb-4">
+                                <label>Choose a meal type :</label>
+                                <br>
+                                <select id="cars" name="meal_type" class="form-select" aria-label="Default select example">
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Dessert">Dessert</option>
+                      </select>
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Manufacturer's
+                            Code</label>
+                                <input type="Text" class="form-control validate" id="mfg" name="mfg">
+
+                            </div>
+
+                            <div class="md-form mb-4">
+                                <label data-error="wrong" data-success="right" for="defaultForm-pass">Enter Food Id</label>
+                                <input type="text" class="form-control validate" id="fd_id" name="fd_id" placeholder="Eg:00">
+
+                            </div>
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter
+                            Quantity</label>
+                                <input type="number" class="form-control validate" id="quantity" name="quantity">
+
+                            </div>
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Calorie
+                            Content</label>
+                                <input type="text" class="form-control validate" id="cal" name="cal">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Protein
+                            Content</label>
+                                <input type="text" class="form-control validate" id="protin" name="protin">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Fat
+                            Content</label>
+                                <input type="text" class="form-control validate" id="fat" name="fat">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter
+                            Carbohydrates Content</label>
+                                <input type="text" class="form-control validate" id="carbs" name="carbs">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Sodium
+                            Content</label>
+                                <input type="text" class="form-control validate" id="sodium" name="sodium">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Sugar
+                            Content</label>
+                                <input type="text" class="form-control validate" id="sugar" name="sugar">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Calorie
+                            Saturated Fats Content</label>
+                                <input type="text" class="form-control validate" id="sat" name="sat">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Fiber
+                            Content</label>
+                                <input type="text" class="form-control validate" id="fiber" name="fiber">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Alchohol
+                            Content</label>
+                                <input type="text" class="form-control validate" id="alc" name="alc">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Serving Style</label>
+                                <input type="Text" class="form-control validate" id="ss_c" name="ss_c">
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <input type="submit" name="submit" id="submit" value="Confirm" class="btn btn-primary" formaction="{% url 'home_app_new:foodtopan' %}">
+                            <button id="Cancel" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CANCEL</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalPurchaseForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">DETAILS</h4>
+                        <button id="Cancel" class="btn btn-danger" data-dismiss="modal" aria-label="Close">X</button>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="modal-body mx-3">
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter food
+                                name</label>
+                                <input type="Text" class="form-control validate" id="selectedItem" name="selectedItem" placeholder="Eg:Dosa">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter mfg
+                                code</label>
+                                <input type="Text" class="form-control validate" id="mfg" name="mfg">
+
+                            </div>
+
+                            <div class="md-form mb-4">
+                                <label data-error="wrong" data-success="right" for="defaultForm-pass">Enter Food Id</label>
+                                <input type="number" class="form-control validate" id="fd_id" name="fd_id" placeholder="Eg:00">
+
+                            </div>
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter
+                                Quantity</label>
+                                <input type="number" class="form-control validate" id="quantity" name="quantity">
+
+                            </div>
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter calorie</label>
+                                <input type="number" class="form-control validate" id="cal" name="cal">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter protein</label>
+                                <input type="number" class="form-control validate" id="protin" name="protin">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter fat</label>
+                                <input type="number" class="form-control validate" id="fat" name="fat">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter
+                                carbohydrates</label>
+                                <input type="number" class="form-control validate" id="carbs" name="carbs">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter sodium</label>
+                                <input type="number" class="form-control validate" id="sodium" name="sodium">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter sugar</label>
+                                <input type="number" class="form-control validate" id="sugar" name="sugar">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter calorie
+                                saturated fats</label>
+                                <input type="number" class="form-control validate" id="sat" name="sat">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter fiber
+                                content</label>
+                                <input type="number" class="form-control validate" id="fiber" name="fiber">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter alchohol
+                                content</label>
+                                <input type="number" class="form-control validate" id="alc" name="alc">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Serving Style</label>
+                                <input type="Text" class="form-control validate" id="ss_c" name="ss_c">
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <input type="submit" name="submit" id="submit" value="Confirm" class="btn btn-success" formaction="{% url 'home_app_new:confirm_purchase2' %}">
+                            <button id="Cancel" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    </script>
+</body>
+
+</html>
+<html>
+<style>
+    .card-text {
+        width: 250px;
+    }
+</style>
+
+<body>
+    <div class="parent" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgwtDdoekLRNcf-PwctvL4CbOkw18q-HChw4cBuGp3oXU2wRMjebZGEY0wD6h9O__ArGg&usqp=CAU'); background-position: center;background-repeat: no-repeat;background-size: 8cm;height: 10%;">
+        <div class="child">
+            <br>
+            <h2 style="font-family: 'Times New Roman', Times, serif;font-size: 40px;font-style: unset; ">
+                <center>
+                    Please Select your preference:
+                </center>
+            </h2>
+            <br>
+            <br>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm">
+                        <div class="container" style="width: 18rem;margin-top: 2rem;margin-left: 5px;">
+                            <div class="card-body">
+                                <a href="{%url 'home_app_new:south'%}" class="btn btn-outline-white">
+                                 <h5 class="card-title"><img src="https://media.istockphoto.com/photos/group-of-south-indian-food-like-masala-dosa-uttapam-idliidly-wadavada-picture-id1024558296?k=6&m=1024558296&s=612x612&w=0&h=KHZjcR8RTzG0ldNbpyNKNclP6dCB8DbiB75xfDr8wKk=" alt="bb_logo" height="100px" width="350px"></h5>
+                                    <h1 class="card-title">South Indian</h1>
+                                </a>
+                                <!--  <p class="card-subtitle">Amazon.com, Inc. is an American multinational technology company which focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence.</p>  -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm">
+                        <div class="container" style="width: 18rem;margin-top: 2rem;">
+                            <div class="card-body">
+                                <a href="{%url 'home_app_new:chinese'%}" class="btn btn-outline-white">
+                                 <h5 class="card-title"><img src="data:image/jpeg;base64,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" alt="bb_logo" height="100px" width="350px"></h5>
+                                    <h1 class="card-title">Chinese</h1>
+                                </a>
+                                <!--  <p class="card-text">Grofers is an Indian online grocery delivery service. It was founded in December 2013 and is based out of Gurgaon.</p> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="container" style="width: 18rem;margin-top: 2rem;margin-left: 5px;">
+                            <div class="card-body">
+                                <a href="{%url 'home_app_new:continental'%}" class="btn btn-outline-white">
+                                <h5 class="card-title"><img src="https://static.toiimg.com/thumb/64029527.cms?width=1200&height=900" alt="bb_logo" height="150px" width="250px"></h5>
+                                    <h1 class="card-title">Continental</h1>
+                                </a>
+                                <!--  <p class="card-text">Supermarket Grocery Supplies Pvt. Ltd., trading as BigBasket, is an Indian online grocery delivery service.</p>  -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="container" style="width: 18rem;margin-top: 2rem;">
+                            <div class="card-body">
+                                <a href="{%url 'home_app_new:sweet'%}" class="btn btn-outline-white">
+                                <h5 class="card-title"><img src="data:image/jpeg;base64,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" alt="bb_logo" height="150px" width="250px"></h5>
+                                    <!-- <h10 class="card-title"><img src="https://images.unsplash.com/photo-1441123285228-1448e608f3d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" alt="bb_logo" height="150px" width="250px"></h10> -->
+                                    <h1 class="card-title">Sweet Dish</h1>
+                                    <p class="card-text"></p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+ {%extends 'base.html'%} {% block body_block%} {% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Food Details</title>
+</head>
+
+<body>
+    {% if info %}
+
+    <br><br>
+    <div class="d-flex justify-content-center">
+        <div class="m-4">
+            <div class="d-flex justify-content-center">
+                <p>
+                    <h2>{{info.food_name}}</h2>
+                </p>
+            </div><br>
+            <div class="card" style="width: 23rem;">
+                <img class="card-img-top" src="{{image_link}}" alt="Food" onerror=this.src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" height="220" width="220">
+                <div class="card-body">
+                    <h5 class="card-title">Nutritional Facts of {{info.food_name}}</h5>
+
+                </div>
+                <div class="float-right">
+                    <div class="d-flex justify-content-center">
+                        <ul class="list-group list-group-flush">
+
+                            <li class="list-group-item">Calories: {{info.calorie}}</li>
+                            <li class="list-group-item">Protien : {{info.protein}}g</li>
+                            <li class="list-group-item">Fat : {{info.fat}}g</li>
+                            <li class="list-group-item">Carbohydrates : {{info.carbs}}g</li>
+                            <li class="list-group-item">Sodium : {{info.sodium}}g</li>
+                            <li class="list-group-item">Sugar : {{info.sugar}}g</li>
+                            <li class="list-group-item">Alchohol : {{info.alchohol}}g</li>
+                            <li class="list-group-item">Fiber content : {{info.fiber}}g</li>
+                            <li class="list-group-item">Calorie Saturated Fats : {{info.calorie_saturated_fat}}g</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endif %}
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,148 @@
+{%extends 'base.html'%} {% block body_block%}
+
+<style>
+    h1 {
+        font-size: 45px;
+    }
+    
+    #home-btn {
+        margin-left: 100%;
+        border: 2px solid darkslateblue;
+        transform: scale(1.2);
+        color: rgb(35, 109, 245) !important;
+    }
+    
+    #form {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+        grid-column-gap: 7rem;
+    }
+    
+    #pie-cont {
+        width: 450px;
+        height: 450px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 3rem auto 1rem auto;
+    }
+    
+    #linechart {
+        width: 950px;
+        height: 450px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 15px;
+    }
+    
+    .center {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    #charts {
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    .input-fields {
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    #date-alert {
+        color: rgb(190, 8, 47);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    #submit-btn {
+        transform: scale(1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+</style>
+<div class="container">
+
+    <center>
+        <h1 style="font-family: 'Times New Roman', Times, serif;font-weight: bold;color: red;margin-top: 4px;"> <i class="fas fa-calendar-day"></i>&nbsp;&nbsp;Datewise Calorie Analysis </h1>
+    </center>
+    <hr>
+    <br>
+
+    <form method="POST">
+        <div id="form">
+            {% csrf_token %}
+
+            <div>
+                <h3 id="date2head" style="margin-left: 100px;font-family: 'Times New Roman', Times, serif;font-weight: bold;">Select Date : </h3>
+                <input class="input-fields" style="margin-left: 100px" type="date" id="dateinput2" name="dateinput2" required>
+            </div>
+            <div>
+                <h3 id="meal" style="margin-top: 15px;font-family: 'Times New Roman', Times, serif;font-weight: bold;;">Select Meal Type :</h3>
+                <select class="input-fields" style="width: 240px;" name="mealtype2" method="GET">
+                  <option value="all" SELECTED>ALL</option>
+                  <option value="Breakfast" SELECTED>Breakfast</option>
+                  <option value="Lunch" SELECTED>Lunch</option>
+                  <option value="Snacks" SELECTED>Snacks</option>
+                  <option value="Dinner" SELECTED>Dinner</option>
+                  <option SELECTED>Select </option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="center">
+            <br>
+            <button class="btn btn-success" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);" type="submit" formaction="otherdayanalysis" id="submit-btn">Submit</button>
+        </div>
+
+        <div id="pie-cont" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+            <div id="piechart3_3d" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);"></div>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    var data = JSON.parse("{{alldata|escapejs}}");
+    var list = []
+    var date = data[0]["date"]
+        //var mt = data[0]["meal_type"]
+        //console.log(date)
+    for (let i = 0; i < data.length; i++) {
+        list.push([data[i]["food_name"], parseInt(data[i]["calorie"])])
+    }
+    console.log(list)
+    google.charts.load("current", {
+        packages: ["corechart"]
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ["FoodName", "Calorie"],
+            ...list
+        ]);
+
+        var options = {
+            titleTextStyle: {
+                fontSize: 20,
+                bold: true,
+            },
+            title: 'Calories Consumption On ' + date,
+            is3D: true,
+            width: 430,
+            height: 420
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart3_3d'));
+        chart.draw(data, options);
+    }
+</script>
+
+{% endblock %}

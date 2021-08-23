@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/f491ae5aed.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <title>Add Food Manually</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Food Diary</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button> &nbsp;&nbsp
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{%url 'FoodIndex_new:base_table'%}">Food Table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{%url 'FoodIndex_new:purchase_table'%}">Purchase Table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{%url 'FoodIndex_new:consumption_table'%}">Pancare Food Table</a>
+                </li>
+                </ul>
+                </div>
+            <a href="{% url 'home_app_new:deletetemp' %}"><button type="submit" style="height: 1%;" class="btn btn-danger ">Logout</button></a>
+        </div>
+        
+
+    </nav>
+    <style>
+        span {
+            background-color: red;
+        }
+        
+        .icon:hover {
+            transform: scale(1.2);
+            text-shadow: 0 10px 30px green;
+        }
+        
+        .navbar {
+            padding: 10px;
+            height: 57px;
+            box-shadow: 0 4px 8px 0 rgba(89, 67, 216, 0.482);
+        }
+        
+        .container-fluid {
+            width: 50vw;
+            height: 100vh;
+            background-color: rgb(255, 255, 255);
+            margin-top: 0 !important;
+            padding-top: 0.7rem;
+        }
+        
+        body {
+            background-size: cover;
+            background-color: rgb(255, 255, 255);
+            padding: 0 !important;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        #title {
+            margin: 1rem auto 1.5rem auto;
+            color: rgb(69, 5, 117);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            width: fit-content;
+            padding: .3rem 1.5rem;
+            border: 2px solid rgb(58, 58, 58);
+            border-radius: 8px;
+        }
+        
+        input {
+            padding: .3rem 1.2rem;
+            width: 15rem;
+            height: 2.5rem;
+            margin: .3rem;
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+        }
+        
+        input:focus {
+            background: #cff5fa;
+        }
+        
+        #form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: .5rem;
+        }
+        
+        #buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        button {
+            padding: .7rem 1rem !important;
+            text-shadow: 0px 0px 4px #000;
+            margin: .3rem;
+            color: rgb(255, 255, 255) !important;
+        }
+        
+        button:focus,
+        button:hover {
+            color: rgb(255, 255, 255) !important;
+            box-shadow: none;
+        }
+        
+        .btn-success {
+            background-color: #429e73;
+        }
+        
+        .btn-info {
+            background-color: #1d80dd;
+        }
+        
+        .btn-dark {
+            background-color: #373b3f;
+        }
+    </style>
+    <div class="container-fluid">
+        <h1 id="title">Add Food Manually</h1>
+        <br>
+        <form method="POST">
+            {% csrf_token %} 
+            <div style="text-align:center; font-weight:600; font-size:18px; background-color:rgb(184, 242, 252); border-radius:30px; color:indigo">{% include 'messages.html' %}</div>
+            
+            <div id="form">
+  
+                <input name="foodname" type="text" placeholder="Food Name">
+                <input name="description" type="text" placeholder="Description">
+                <input name="sstype" type="text" placeholder="S.S. Type">
+                <input name="cal" type="text" placeholder="Calories">
+                <input name="fats" type="text" placeholder="Fats">
+                <input name="protein" type="text" placeholder="Protein">
+                <input name="carbs" type="text" placeholder="Carbohydrates">
+                <input name="img" type="url" placeholder="Image/Image URL">
+
+            </div>
+            <br>
+            <div id="buttons">
+                <div>
+                    <button class="btn btn-success" type="submit" formaction="add_purchase_food">Submit</button>
+                    {% comment %} <button class="btn btn-info" type="submit" formaction="upload_csv_">Back To Add Data Page</button> {% endcomment %}
+                    <button class="btn btn-dark" type="submit" formaction="purchase_table">Show Purchase Table</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
