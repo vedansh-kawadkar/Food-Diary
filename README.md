@@ -97,3 +97,9 @@ _Purchases Table_
 Redirects to a form to add food to purchase table.  
 ![Updating Purchases Table](./assets/updating_purchases_table.png)  
 Redirects to a form to update food items in purchase table,
+
+
+--    Created the Admin Control for the project.
+    Created various fully functional web interfaces that perform CRUD operations on connected databases.
+    Created comparative charts using Google Charts API that draws date-wise comparison between the nutrition intake of user and with other users.
+    Tech Used: Python, Django, HTML, CSS, Javascript, MySQL
